@@ -1,77 +1,41 @@
 <?php
 class SQLiteDatabase extends SQLite3{
-	
-	
-	function __construct($db_name){
-		
-		$this->open($db_name);
-		
-		global $dbname;
-		
-		$dbname = $db_name;
-		
-		$this->close();
-		
+    function __construct($db_name){
+        $this->open($db_name);
+        global $dbname;		
+		$dbname = $db_name;		
+		$this->close();		
 	}
-	
-	function close(){
-		
-		parent::close();
-		
+	function close(){		
+		parent::close();		
 	}
-	
 	function add_data($table_name,$args){
-		
 		global $dbname;
-		
 		if($dbname != null && $table_name != null){
-			
 			$values = "";
-			
 			$count = count($args);
-			
 			$i = 0;
-			
 			foreach($args as $column_name => $value){
-				
 				if($i == ($count - 1)){
-					
 					$values .= "'".$value."'";
-					
 				}
 				else{
-					
 					$values .= "'".$value ."',";
-					
 				}
-				
 				$i++;
-				
 			}
-			
 			if($this->is_table_exist($table_name)){
-				
 				$this->open($dbname);
-				
 				$q=$this->prepare("insert into ".$table_name." values(".$values.")") or die("error");
-				
 				$q->execute();
-				
 				$this->close();
-				
 				return true;
-				
 			}
 			else{
-				
 				return false;
-				
 			}
-			
 		}
-		
 	}
-	
 	function update_data($table_name,$args_data=null,$args_condition=null){
 		
 		global $dbname;
