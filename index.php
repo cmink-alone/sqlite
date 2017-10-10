@@ -6,8 +6,8 @@ $db = new SQLiteDatabase('test.sqlite');
 $count = $db->get_table_count();
 //mendapatkan jumlah tabel pada database
 if($count < 1){
-	//j	ika jumlah tabel kurang dari 1
-	//b	uat tabel baru dengan nama users dan membuat array baru untuk tiap kolom database
+	//jika jumlah tabel kurang dari 1
+	//buat tabel baru dengan nama users dan membuat array baru untuk tiap kolom database
 	$db->create_table("users",array('id' => 'INTEGER(10)',
 	'nama' => 'VARCHAR(50)'
 	));
